@@ -16,8 +16,12 @@ fi
 
 php artisan migrate --force
 
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
+if [ "$APP_ENV" = "production" ]; then
+    php artisan config:cache
+    php artisan route:cache
+    php artisan view:cache
+else
+    php artisan optimize:clear
+fi
 
 exec "$@"
