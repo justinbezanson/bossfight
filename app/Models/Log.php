@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Models;
+
+use Database\Factories\LogFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
+
+/**
+ * @property int $id
+ * @property string $log_date
+ * @property int $kid_id
+ * @property int $user_id
+ * @property string $message
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Kid $kid
+ * @property-read User $user
+ */
+class Log extends Model
+{
+    /** @use HasFactory<LogFactory> */
+    use HasFactory;
+
+    protected $fillable = ['log_date', 'kid_id', 'user_id', 'message'];
+
+    /** @return BelongsTo<Kid, $this> */
+    public function kid(): BelongsTo
+    {
+        return $this->belongsTo(Kid::class);
+    }
+
+    /** @return BelongsTo<User, $this> */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+}
