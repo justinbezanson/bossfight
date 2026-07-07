@@ -59,6 +59,11 @@ const mainNavItems: NavItem[] = [
         href: dashboard(),
         icon: LayoutGrid,
     },
+    {
+        title: 'Kids',
+        href: '/kids',
+        icon: Search,
+    }
 ];
 
 const rightNavItems: NavItem[] = [
