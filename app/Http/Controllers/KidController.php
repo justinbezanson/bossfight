@@ -31,6 +31,8 @@ class KidController extends Controller
 
         $action->execute($request, $request->user());
 
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Kid added.')]);
+
         return to_route('kids.index');
     }
 
@@ -40,6 +42,8 @@ class KidController extends Controller
 
         $action->execute($request, $kid);
 
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Kid updated.')]);
+
         return to_route('kids.index');
     }
 
@@ -48,6 +52,8 @@ class KidController extends Controller
         $this->authorize('delete', $kid);
 
         $action->execute($kid);
+
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Kid deleted.')]);
 
         return to_route('kids.index');
     }
