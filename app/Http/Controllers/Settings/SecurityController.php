@@ -18,15 +18,27 @@ class SecurityController extends Controller
      */
     public function edit(TwoFactorAuthenticationRequest $request): Response
     {
+        $user = $request->user();
+
         $props = [
             'canManageTwoFactor' => Features::canManageTwoFactorAuthentication(),
             'passwordRules' => Password::defaults()->toPasswordRulesString(),
+            'tokens' => $user->tokens->map(fn ($token) => [
+                'id' => $token->id,
+                'name' => $token->name,
+                'last_used_at' => $token->last_used_at?->diffForHumans(),
+                'created_at' => $token->created_at->diffForHumans(),
+            ])->values(),
         ];
+
+        if ($newApiToken = $request->session()->pull('new_api_token')) {
+            $props['newApiToken'] = $newApiToken;
+        }
 
         if (Features::canManageTwoFactorAuthentication()) {
             $request->ensureStateIsValid();
 
-            $props['twoFactorEnabled'] = $request->user()->hasEnabledTwoFactorAuthentication();
+            $props['twoFactorEnabled'] = $user->hasEnabledTwoFactorAuthentication();
             $props['requiresConfirmation'] = Features::optionEnabled(Features::twoFactorAuthentication(), 'confirm');
         }
 
