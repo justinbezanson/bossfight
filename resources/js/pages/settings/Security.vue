@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Form, Head, router, useForm } from '@inertiajs/vue3';
 import { Copy, KeyRound, Plus, Trash2 } from '@lucide/vue';
+import { useClipboard } from '@vueuse/core';
 import { ref, watch } from 'vue';
 import SecurityController from '@/actions/App/Http/Controllers/Settings/SecurityController';
 import Heading from '@/components/Heading.vue';
@@ -11,7 +12,6 @@ import PasswordInput from '@/components/PasswordInput.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { useClipboard } from '@vueuse/core';
 import { store as createToken, destroy as deleteToken } from '@/routes/api-tokens';
 import { edit } from '@/routes/security';
 
