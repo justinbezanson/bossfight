@@ -71,6 +71,16 @@ All controller routes must use FormRequest and Action classes
 
 All model actions must be governed by a Policy class
 
+## Devices
+
+I will be testing this on Windows 11, Ubuntu 26.04, Omarchy (Arch).
+
+The device scripts will need to run every 1 to 5 minutes. I will manually set the scheduler/cron for now.
+
+The scripts need to reach out to the /games api endpoint to get a list of games to search the device for. After getting the list of games, the script will search for the specified process names to see if they are running. If none of the process names are running the script will end. For each of the process names that are found to be running, the script will send a request to the /log/create endpoint to log the same.
+
+## Test Notes
+
 Test: 4|45EoMTXbWuKnAyuRBRY1dbpndB7Vx5f21Or99lBA28fff3c3
 
 curl -X POST http://localhost/api/log/create \
