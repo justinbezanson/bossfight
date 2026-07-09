@@ -52,3 +52,9 @@ All controller routes must use FormRequest and Action classes
 All model actions must be governed by a Policy class
 
 Test: 4|45EoMTXbWuKnAyuRBRY1dbpndB7Vx5f21Or99lBA28fff3c3
+
+curl -X POST http://localhost/api/log/create \
+  -H "Authorization: Bearer 4|45EoMTXbWuKnAyuRBRY1dbpndB7Vx5f21Or99lBA28fff3c3" \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json" \
+  -d '{"kid_id": 1, "message": "Your log message here"}'
