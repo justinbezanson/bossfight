@@ -78,3 +78,7 @@ curl -X POST http://localhost/api/log/create \
   -H "Content-Type: application/json" \
   -H "Accept: application/json" \
   -d '{"kid_id": 1, "message": "Your log message here"}'
+
+curl http://localhost/api/games \
+  -H "Authorization: Bearer 4|45EoMTXbWuKnAyuRBRY1dbpndB7Vx5f21Or99lBA28fff3c3" \
+  -H "Accept: application/json"

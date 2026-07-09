@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Validator;
 
 class StoreGameRequest extends FormRequest
 {
@@ -11,6 +12,7 @@ class StoreGameRequest extends FormRequest
         return true;
     }
 
+    /** @return array<string, mixed> */
     public function rules(): array
     {
         return [
@@ -19,7 +21,7 @@ class StoreGameRequest extends FormRequest
         ];
     }
 
-    protected function withValidator($validator): void
+    protected function withValidator(Validator $validator): void
     {
         $validator->after(function ($validator) {
             $processes = $this->input('processes');

@@ -11,7 +11,7 @@ use Illuminate\Support\Carbon;
 /**
  * @property int $id
  * @property string $name
- * @property array $processes
+ * @property array<string> $processes
  * @property int $user_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -46,6 +46,7 @@ class Game extends Model
         }
     }
 
+    /** @return array<string> */
     public function getProcessesAttribute(?string $value): array
     {
         if ($value === null || $value === '') {
