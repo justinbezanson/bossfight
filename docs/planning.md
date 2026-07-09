@@ -23,6 +23,16 @@ CREATE TABLE logs (
         REFERENCES users(id)
 );
 
+CREATE TABLE games (
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    name VARCHAR(128) NOT NULL,
+    processes TEXT NOT NULL, #system process names the game may run as, comman delimited
+    user_id INT NOT NULL,
+    CONSTRAINT fk_games_users
+        FOREIGN KEY (user_id) 
+        REFERENCES users(id)
+);
+
 ## Administration Routes (web.php)
 
 All routes need authentication
@@ -39,11 +49,21 @@ DELETE "/kid/{id}" => KidController::delete => delete kid
 
 GET "/logs" => LogController::index => list logs in paginated table
 
+GET "/games" => GameController::index => list of games with edit and delete buttons, new games are added inline
+
+POST "/game/create" => GameController::create => create new game
+
+PUT "/game/{id}" => GameController::update => update game
+
+DELETE "/game/{id}" => GameController::delete => delete game
+
 ## API Routes (api.php)
 
 All routes require API KEY for authentication
 
 POST "/log/create" => LogController::create => create new log entry
+
+GET /games => GameController::index => returns list of games for the specificed user_id and API KEY
 
 ## Architecture
 

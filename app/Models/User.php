@@ -34,11 +34,6 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasApiTokens, HasFactory, Notifiable, TwoFactorAuthenticatable;
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
@@ -58,5 +53,11 @@ class User extends Authenticatable
     public function logs(): HasMany
     {
         return $this->hasMany(Log::class);
+    }
+
+    /** @return HasMany<Game, $this> */
+    public function games(): HasMany
+    {
+        return $this->hasMany(Game::class);
     }
 }
