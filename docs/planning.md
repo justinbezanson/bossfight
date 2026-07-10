@@ -96,3 +96,8 @@ curl -X POST http://localhost/api/log/create \
 curl http://localhost/api/games \
   -H "Authorization: Bearer 4|45EoMTXbWuKnAyuRBRY1dbpndB7Vx5f21Or99lBA28fff3c3" \
   -H "Accept: application/json"
+
+  ## TODO
+
+  - dashboard widgets
+  - log table pagination
