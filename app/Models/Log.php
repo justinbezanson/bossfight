@@ -12,11 +12,13 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property string $log_date
  * @property int $kid_id
+ * @property int|null $game_id
  * @property int $user_id
  * @property string $message
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Kid $kid
+ * @property-read Game|null $game
  * @property-read User $user
  */
 class Log extends Model
@@ -24,12 +26,18 @@ class Log extends Model
     /** @use HasFactory<LogFactory> */
     use HasFactory;
 
-    protected $fillable = ['log_date', 'kid_id', 'user_id', 'message'];
+    protected $fillable = ['log_date', 'kid_id', 'game_id', 'user_id', 'message'];
 
     /** @return BelongsTo<Kid, $this> */
     public function kid(): BelongsTo
     {
         return $this->belongsTo(Kid::class);
+    }
+
+    /** @return BelongsTo<Game, $this> */
+    public function game(): BelongsTo
+    {
+        return $this->belongsTo(Game::class);
     }
 
     /** @return BelongsTo<User, $this> */

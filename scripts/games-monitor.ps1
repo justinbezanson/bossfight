@@ -3,6 +3,8 @@ $ApiUrl = "http://localhost"
 $ApiToken = "YOUR_API_TOKEN"
 $KidId = 1
 
+Write-Output "[$(Get-Date)] Monitoring games..."
+
 # Fetch game list
 try {
     $Games = Invoke-RestMethod -Uri "$ApiUrl/api/games" `
@@ -14,8 +16,11 @@ try {
 }
 
 foreach ($Game in $Games) {
+    $GameId = $Game.id
     $Name = $Game.name
     $Processes = $Game.processes
+
+    Write-Output "[$Name] Checking processes..."
 
     $Found = $false
     foreach ($Proc in $Processes) {
@@ -25,8 +30,10 @@ foreach ($Game in $Games) {
         }
     }
 
-    if ($Found) {
-        $Body = @{ kid_id = $KidId; message = "Game running: $Name" } | ConvertTo-Json
+    if (-not $Found) {
+        Write-Output "[$Name] No processes running"
+    } else {
+        $Body = @{ kid_id = $KidId; game_id = $GameId; message = "Game running: $Name" } | ConvertTo-Json
 
         try {
             Invoke-RestMethod -Uri "$ApiUrl/api/log/create" `

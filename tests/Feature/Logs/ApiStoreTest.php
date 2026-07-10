@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Game;
 use App\Models\Kid;
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
@@ -47,6 +48,29 @@ test('api can create a log with valid api key', function () {
     $response->assertCreated();
     $response->assertJson([
         'kid_id' => $kid->id,
+        'game_id' => null,
+        'message' => 'Test log message',
+        'user_id' => $user->id,
+    ]);
+});
+
+test('api can create a log with game_id', function () {
+    $user = User::factory()->create();
+    $kid = Kid::factory()->create(['user_id' => $user->id]);
+    $game = Game::factory()->create(['user_id' => $user->id]);
+
+    Sanctum::actingAs($user);
+
+    $response = $this->postJson('/api/log/create', [
+        'kid_id' => $kid->id,
+        'game_id' => $game->id,
+        'message' => 'Test log message',
+    ]);
+
+    $response->assertCreated();
+    $response->assertJson([
+        'kid_id' => $kid->id,
+        'game_id' => $game->id,
         'message' => 'Test log message',
         'user_id' => $user->id,
     ]);
@@ -73,6 +97,21 @@ test('api validates kid exists when creating a log', function () {
     ]);
 
     $response->assertJsonValidationErrors(['kid_id']);
+});
+
+test('api validates game exists when creating a log', function () {
+    $user = User::factory()->create();
+    $kid = Kid::factory()->create(['user_id' => $user->id]);
+
+    Sanctum::actingAs($user);
+
+    $response = $this->postJson('/api/log/create', [
+        'kid_id' => $kid->id,
+        'game_id' => 999,
+        'message' => 'Test message',
+    ]);
+
+    $response->assertJsonValidationErrors(['game_id']);
 });
 
 test('api validates message length when creating a log', function () {

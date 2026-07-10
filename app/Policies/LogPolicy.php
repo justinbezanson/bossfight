@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Game;
 use App\Models\Kid;
 use App\Models\Log;
 use App\Models\User;
@@ -23,9 +24,15 @@ class LogPolicy
         return true;
     }
 
-    /** Check that the log's kid belongs to the user */
+    /** Check that the log's kid and game (if provided) belong to the user */
     public function createForKid(User $user, Kid $kid): bool
     {
         return $kid->user_id === $user->id;
+    }
+
+    /** Check that the game belongs to the user */
+    public function createForGame(User $user, Game $game): bool
+    {
+        return $game->user_id === $user->id;
     }
 }

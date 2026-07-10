@@ -17,6 +17,7 @@ class LogStoreRequest extends FormRequest
     {
         return [
             'kid_id' => ['required', 'integer', 'exists:kids,id'],
+            'game_id' => ['nullable', 'integer', 'exists:games,id'],
             'message' => ['required', 'string', 'max:512'],
         ];
     }

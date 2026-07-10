@@ -6,6 +6,8 @@ API_URL="http://localhost"
 API_TOKEN="YOUR_API_TOKEN"
 KID_ID="1"
 
+echo "[$(date)] Monitoring games..."
+
 # Fetch game list
 GAMES=$(curl -sf "$API_URL/api/games" \
   -H "Authorization: Bearer $API_TOKEN" \
@@ -13,8 +15,11 @@ GAMES=$(curl -sf "$API_URL/api/games" \
 
 # Parse each game
 echo "$GAMES" | jq -c '.[]' | while read -r GAME; do
+  GAME_ID=$(echo "$GAME" | jq -r '.id')
   NAME=$(echo "$GAME" | jq -r '.name')
   PROCESSES=$(echo "$GAME" | jq -r '.processes[]')
+
+  echo "[$NAME] Checking processes..."
 
   FOUND=0
   while IFS= read -r PROC; do
@@ -24,12 +29,14 @@ echo "$GAMES" | jq -c '.[]' | while read -r GAME; do
     fi
   done <<< "$PROCESSES"
 
-  if [ "$FOUND" -eq 1 ]; then
+  if [ "$FOUND" -eq 0 ]; then
+    echo "[$NAME] No processes running"
+  else
     curl -sf -X POST "$API_URL/api/log/create" \
       -H "Authorization: Bearer $API_TOKEN" \
       -H "Content-Type: application/json" \
       -H "Accept: application/json" \
-      -d "$(jq -n --arg kid "$KID_ID" --arg msg "Game running: $NAME" '{kid_id: ($kid | tonumber), message: $msg}')" \
+      -d "$(jq -n --arg kid "$KID_ID" --argjson gid "$GAME_ID" --arg msg "Game running: $NAME" '{kid_id: ($kid | tonumber), game_id: $gid, message: $msg}')" \
       >/dev/null && echo "[$NAME] Logged"
   fi
 done

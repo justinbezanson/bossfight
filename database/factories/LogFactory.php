@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Game;
 use App\Models\Kid;
 use App\Models\Log;
 use App\Models\User;
@@ -19,6 +20,7 @@ class LogFactory extends Factory
         return [
             'log_date' => fake()->dateTimeThisMonth(),
             'kid_id' => Kid::factory(),
+            'game_id' => Game::factory(),
             'user_id' => User::factory(),
             'message' => fake()->sentence(),
         ];

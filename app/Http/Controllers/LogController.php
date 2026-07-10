@@ -16,7 +16,7 @@ class LogController extends Controller
     {
         $this->authorize('viewAny', Log::class);
 
-        $logs = Log::with('kid')
+        $logs = Log::with(['kid', 'game'])
             ->where('user_id', auth()->id())
             ->latest('log_date')
             ->paginate(20);

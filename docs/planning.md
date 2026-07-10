@@ -13,11 +13,15 @@ CREATE TABLE logs (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     log_date DATETIME NOT NULL DEFAULT NOW(),
     kid_id INT NOT NULL,
+    game_id INT NULL,
     user_id INT NOT NULL,
     message VARCHAR(512) NOT NULL,
     CONSTRAINT fk_logs_kids 
         FOREIGN KEY (kid_id) 
         REFERENCES kids(id),
+    CONSTRAINT fk_logs_games
+        FOREIGN KEY (game_id) 
+        REFERENCES games(id),
     CONSTRAINT fk_logs_users
         FOREIGN KEY (user_id) 
         REFERENCES users(id)
