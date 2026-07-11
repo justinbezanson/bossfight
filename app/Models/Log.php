@@ -28,6 +28,13 @@ class Log extends Model
 
     protected $fillable = ['log_date', 'kid_id', 'game_id', 'user_id', 'message'];
 
+    protected function casts(): array
+    {
+        return [
+            'log_date' => 'datetime',
+        ];
+    }
+
     /** @return BelongsTo<Kid, $this> */
     public function kid(): BelongsTo
     {
