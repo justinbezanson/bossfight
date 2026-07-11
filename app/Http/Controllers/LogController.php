@@ -19,7 +19,7 @@ class LogController extends Controller
         $logs = Log::with(['kid', 'game'])
             ->where('user_id', auth()->id())
             ->latest('log_date')
-            ->paginate(20);
+            ->paginate(15);
 
         return Inertia::render('Logs/Index', [
             'logs' => $logs,

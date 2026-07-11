@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { Head } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { index as logsIndex } from '@/routes/logs';
+import { Button } from '@/components/ui/button';
 
 interface Log {
     id: number;
@@ -11,9 +12,19 @@ interface Log {
     message: string;
 }
 
+interface PaginationLink {
+    url: string | null;
+    label: string;
+    active: boolean;
+}
+
 interface PaginatedLogs {
     data: Log[];
-    links: Record<string, string | null>;
+    current_page: number;
+    last_page: number;
+    per_page: number;
+    total: number;
+    links: PaginationLink[];
 }
 
 const { logs } = defineProps<{
@@ -29,6 +40,12 @@ defineOptions({
         },
     ],
 });
+
+function goToPage(url: string | null) {
+    if (url) {
+        router.visit(url);
+    }
+}
 </script>
 
 <template>
@@ -59,6 +76,37 @@ defineOptions({
                     </tr>
                 </tbody>
             </table>
+        </div>
+
+        <div v-if="logs.last_page > 1" class="flex gap-1">
+            <Button
+                variant="ghost"
+                size="sm"
+                :disabled="logs.current_page === 1"
+                @click="goToPage(logs.links[0].url)"
+            >
+                Previous
+            </Button>
+
+            <Button
+                v-for="link in logs.links.slice(1, -1)"
+                :key="link.label"
+                :variant="link.active ? 'default' : 'ghost'"
+                size="sm"
+                :disabled="!link.url"
+                @click="goToPage(link.url)"
+            >
+                {{ link.label }}
+            </Button>
+
+            <Button
+                variant="ghost"
+                size="sm"
+                :disabled="logs.current_page === logs.last_page"
+                @click="goToPage(logs.links[logs.links.length - 1].url)"
+            >
+                Next
+            </Button>
         </div>
     </div>
 </template>

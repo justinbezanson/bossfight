@@ -2,6 +2,7 @@
 
 use App\Models\Log;
 use App\Models\User;
+use Inertia\Testing\AssertableInertia as Assert;
 
 test('guests are redirected from logs to the login page', function () {
     $response = $this->get(route('logs.index'));
@@ -27,4 +28,25 @@ test('users only see their own logs', function () {
     $response = $this->actingAs($user)->get(route('logs.index'));
 
     $response->assertOk();
+});
+
+test('logs are paginated with 5 per page', function () {
+    $user = User::factory()->create();
+    Log::factory()->count(7)->create(['user_id' => $user->id]);
+
+    $response = $this->actingAs($user)->get(route('logs.index'));
+
+    $response->assertOk();
+    $response->assertInertia(fn (Assert $page) => $page
+        ->component('Logs/Index')
+        ->has('logs', fn (Assert $page) => $page
+            ->where('per_page', 5)
+            ->where('total', 7)
+            ->where('last_page', 2)
+            ->where('current_page', 1)
+            ->has('data', 5)
+            ->has('links')
+            ->etc()
+        )
+    );
 });
