@@ -23,7 +23,13 @@ echo "$GAMES" | jq -c '.[]' | while read -r GAME; do
 
   FOUND=0
   while IFS= read -r PROC; do
-    if pgrep -x "$PROC" >/dev/null 2>&1; then
+    if [[ "$PROC" == java:* ]]; then
+      SEARCH_TERM="${PROC#java:}"
+      if pgrep -a java 2>/dev/null | grep -qi "$SEARCH_TERM"; then
+        echo "[$NAME] Process running: $PROC"
+        FOUND=1
+      fi
+    elif pgrep -x "$PROC" >/dev/null 2>&1; then
       echo "[$NAME] Process running: $PROC"
       FOUND=1
     fi

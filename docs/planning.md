@@ -101,3 +101,8 @@ curl http://localhost/api/games \
 
   - dashboard widgets
   - log table pagination
+
+## games 
+  - minecraft processes: java:minecraft, java:bedrock_server, javaw, Minecraft.Windows
+  - BadNorth.exe
+  - Vintagestory

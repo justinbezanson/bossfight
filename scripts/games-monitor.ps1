@@ -24,7 +24,14 @@ foreach ($Game in $Games) {
 
     $Found = $false
     foreach ($Proc in $Processes) {
-        if (Get-Process -Name $Proc -ErrorAction SilentlyContinue) {
+        if ($Proc -like "java:*") {
+            $SearchTerm = $Proc.Substring(5)
+            $JavaProcesses = Get-Process -Name java -ErrorAction SilentlyContinue
+            if ($JavaProcesses -and ($JavaProcesses | ForEach-Object { $_.CommandLine } | Select-String -Pattern $SearchTerm -Quiet)) {
+                Write-Output "[$Name] Process running: $Proc"
+                $Found = $true
+            }
+        } elseif (Get-Process -Name $Proc -ErrorAction SilentlyContinue) {
             Write-Output "[$Name] Process running: $Proc"
             $Found = $true
         }
