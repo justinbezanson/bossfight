@@ -10,7 +10,7 @@ use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
- * @property string $log_date
+ * @property Carbon $log_date
  * @property int $kid_id
  * @property int|null $game_id
  * @property int $user_id

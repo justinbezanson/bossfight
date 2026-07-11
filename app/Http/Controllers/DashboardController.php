@@ -37,7 +37,7 @@ class DashboardController extends Controller
      */
     private function calculateSessions(Collection $logs): Collection
     {
-        $grouped = $logs->groupBy(fn (Log $log) => $log->kid_id.'-'.$log->game_id);
+        $grouped = $logs->groupBy(fn (Log $log): string => $log->kid_id.'-'.$log->game_id);
 
         $sessions = new Collection;
 
@@ -97,7 +97,7 @@ class DashboardController extends Controller
     private function getTopGames(Collection $sessions): array
     {
         return $sessions
-            ->groupBy(fn (array $session) => $session['game']->id)
+            ->groupBy(fn (array $session): int => $session['game']->id)
             ->map(fn (Collection $gameSessions) => [
                 'game' => $gameSessions->first()['game'],
                 'total_minutes' => round($gameSessions->sum('duration_minutes'), 1),
