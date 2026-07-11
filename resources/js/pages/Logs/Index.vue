@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { Head, router } from '@inertiajs/vue3';
+import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { index as logsIndex } from '@/routes/logs';
-import { Button } from '@/components/ui/button';
 
 interface Log {
     id: number;

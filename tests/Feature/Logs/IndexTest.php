@@ -30,9 +30,9 @@ test('users only see their own logs', function () {
     $response->assertOk();
 });
 
-test('logs are paginated with 5 per page', function () {
+test('logs are paginated with 15 per page', function () {
     $user = User::factory()->create();
-    Log::factory()->count(7)->create(['user_id' => $user->id]);
+    Log::factory()->count(17)->create(['user_id' => $user->id]);
 
     $response = $this->actingAs($user)->get(route('logs.index'));
 
@@ -40,11 +40,11 @@ test('logs are paginated with 5 per page', function () {
     $response->assertInertia(fn (Assert $page) => $page
         ->component('Logs/Index')
         ->has('logs', fn (Assert $page) => $page
-            ->where('per_page', 5)
-            ->where('total', 7)
+            ->where('per_page', 15)
+            ->where('total', 17)
             ->where('last_page', 2)
             ->where('current_page', 1)
-            ->has('data', 5)
+            ->has('data', 15)
             ->has('links')
             ->etc()
         )
