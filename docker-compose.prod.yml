@@ -4,9 +4,23 @@ services:
       - APP_ENV=production
       - APP_DEBUG=false
       - LOG_LEVEL=warning
+    env_file:
+      - .env.production
     volumes:
       - bossfight-database:/var/www/html/database
       - bossfight-storage:/var/www/html/storage
+    restart: unless-stopped
+    stop_grace_period: 10s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '1.0'
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
     healthcheck:
       test:
         - CMD
@@ -16,4 +30,8 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
-      start_period: 30s
+      start_period: 60s
+
+volumes:
+  bossfight-database:
+  bossfight-storage:

@@ -67,7 +67,7 @@ RUN npm run build && \
 
 FROM php:8.3-fpm-alpine
 
-RUN apk add --no-cache nginx supervisor sqlite-dev && \
+RUN apk add --no-cache nginx supervisor sqlite-dev curl && \
     docker-php-ext-install pdo_sqlite && \
     apk del sqlite-dev
 
