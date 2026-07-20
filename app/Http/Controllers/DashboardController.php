@@ -24,11 +24,28 @@ class DashboardController extends Controller
 
         $topGames = $this->getTopGames($sessions);
         $recentSessions = $this->getRecentSessions($sessions);
+        $topPlayers = $this->getTopPlayers($sessions);
 
         return Inertia::render('Dashboard', [
             'topGames' => $topGames,
             'recentSessions' => $recentSessions,
+            'topPlayers' => $topPlayers,
         ]);
+    }
+
+    private function getTopPlayers(Collection $sessions): array
+    {
+        return $sessions
+            ->groupBy(fn (array $session): int => $session['kid']->id)
+            ->map(fn (Collection $kidSessions) => [
+                'kid' => $kidSessions->first()['kid'],
+                'total_minutes' => round($kidSessions->sum('duration_minutes'), 1),
+                'session_count' => $kidSessions->count(),
+            ])
+            ->sortByDesc('total_minutes')
+            ->values()
+            ->take(3)
+            ->toArray();
     }
 
     /**
