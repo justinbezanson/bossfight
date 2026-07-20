@@ -69,6 +69,7 @@ function formatDateTime(dateString: string): string {
     <Head title="Dashboard" />
 
     <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
+        <div class="font-bold text-2xl">Top Games</div>
         <div class="grid gap-4 md:grid-cols-3">
             <Card v-for="item in topGames" :key="item.game.id">
                 <CardHeader>
@@ -87,11 +88,11 @@ function formatDateTime(dateString: string): string {
         </div>
 
         <div class="rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-            <div class="px-4 py-3 font-medium">Recent Sessions</div>
+            <div class="px-4 py-3 font-medium text-lg">Recent Sessions</div>
             <table class="w-full text-sm">
                 <thead>
-                    <tr class="border-b border-sidebar-border/70 text-left">
-                        <th class="px-4 py-3 font-medium">Kid</th>
+                    <tr class="border-b border-sidebar-border/70 text-left bg-gray-800">
+                        <th class="px-4 py-3 font-medium">Player</th>
                         <th class="px-4 py-3 font-medium">Game</th>
                         <th class="px-4 py-3 font-medium">Start</th>
                         <th class="px-4 py-3 font-medium">End</th>

@@ -29,8 +29,8 @@ const mainNavItems: NavItem[] = [
         icon: File,
     },
     {
-        title: 'Kids',
-        href: '/kids',
+        title: 'Players',
+        href: '/players',
         icon: User,
     },
     {

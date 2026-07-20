@@ -13,7 +13,7 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::get('/kids', [KidController::class, 'index'])->name('kids.index');
+    Route::get('/players', [KidController::class, 'index'])->name('kids.index');
     Route::post('/kid/create', [KidController::class, 'store'])->name('kids.store');
     Route::put('/kid/{kid}', [KidController::class, 'update'])->name('kids.update');
     Route::delete('/kid/{kid}', [KidController::class, 'destroy'])->name('kids.destroy');

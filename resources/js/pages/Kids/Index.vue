@@ -47,10 +47,10 @@ defineOptions({
 
     <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
         <div class="flex items-center justify-between">
-            <h1 class="text-2xl font-bold">Kids</h1>
+            <h1 class="text-2xl font-bold">Players</h1>
             <Popover v-model:open="addPopoverOpen">
                 <PopoverTrigger as-child>
-                    <Button>Add Kid</Button>
+                    <Button>Add Player</Button>
                 </PopoverTrigger>
                 <PopoverContent class="w-80" align="end">
                     <Form
@@ -61,16 +61,16 @@ defineOptions({
                         class="grid gap-4"
                     >
                         <div class="space-y-2">
-                            <h4 class="font-medium leading-none">New Kid</h4>
-                            <p class="text-sm text-muted-foreground">Add a new kid to your list.</p>
+                            <h4 class="font-medium leading-none">New Player</h4>
+                            <p class="text-sm text-muted-foreground">Add a new player to your list.</p>
                         </div>
                         <div class="grid gap-2">
                             <Label for="name">Name</Label>
-                            <Input id="name" name="name" placeholder="Kid name" required />
+                            <Input id="name" name="name" placeholder="Player name" required />
                             <InputError :message="errors.name" />
                         </div>
                         <Button type="submit" :disabled="processing">
-                            {{ processing ? 'Adding...' : 'Add Kid' }}
+                            {{ processing ? 'Adding...' : 'Add Player' }}
                         </Button>
                     </Form>
                 </PopoverContent>
@@ -97,12 +97,12 @@ defineOptions({
                                 class="grid gap-4"
                             >
                                 <div class="space-y-2">
-                                    <h4 class="font-medium leading-none">Edit Kid</h4>
-                                    <p class="text-sm text-muted-foreground">Update the kid's name.</p>
+                                    <h4 class="font-medium leading-none">Edit Player</h4>
+                                    <p class="text-sm text-muted-foreground">Update the player's name.</p>
                                 </div>
                                 <div class="grid gap-2">
                                     <Label for="edit-name">Name</Label>
-                                    <Input id="edit-name" name="name" :default-value="kid.name" placeholder="Kid name" required />
+                                    <Input id="edit-name" name="name" :default-value="kid.name" placeholder="Player name" required />
                                     <InputError :message="errors.name" />
                                 </div>
                                 <Button type="submit" :disabled="processing">
@@ -118,7 +118,7 @@ defineOptions({
                         </DialogTrigger>
                         <DialogContent>
                             <DialogHeader>
-                                <DialogTitle>Delete Kid</DialogTitle>
+                                <DialogTitle>Delete Player</DialogTitle>
                                 <DialogDescription>
                                     Are you sure you want to delete <strong>{{ kid.name }}</strong>? This action cannot be undone.
                                 </DialogDescription>
@@ -145,7 +145,7 @@ defineOptions({
             </div>
 
             <div v-if="kids.length === 0" class="p-4 text-center text-sm text-muted-foreground">
-                No kids yet.
+                No players yet.
             </div>
         </div>
     </div>

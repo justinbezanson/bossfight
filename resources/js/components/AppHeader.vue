@@ -60,8 +60,8 @@ const mainNavItems: NavItem[] = [
         icon: LayoutGrid,
     },
     {
-        title: 'Kids',
-        href: '/kids',
+        title: 'Players',
+        href: '/players',
         icon: Search,
     }
 ];
