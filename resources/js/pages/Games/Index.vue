@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Head, Form } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import {
@@ -50,6 +50,12 @@ defineOptions({
             href: gamesIndex(),
         },
     ],
+});
+
+watch(addPopoverOpen, (open) => {
+    if (open) {
+        addProcesses.value = [];
+    }
 });
 </script>
 
@@ -166,7 +172,8 @@ defineOptions({
                             <DialogHeader>
                                 <DialogTitle>Delete Game</DialogTitle>
                                 <DialogDescription>
-                                    Are you sure you want to delete <strong>{{ game.name }}</strong>? This action cannot be undone.
+                                    <div class="mb-4">Are you sure you want to delete <strong>{{ game.name }}</strong>? This action cannot be undone.</div>
+                                    <div><strong>WARNING:</strong> all logs associated with this game will also be deleted.</div>
                                 </DialogDescription>
                             </DialogHeader>
                             <Form
@@ -177,7 +184,7 @@ defineOptions({
                             >
                                 <InputError :message="errors.game" />
                                 <DialogFooter class="mt-6">
-                                    <Button variant="outline" @click="deletingGame = null" :disabled="processing">
+                                    <Button type="button" variant="outline" @click="deletingGame = null" :disabled="processing">
                                         Cancel
                                     </Button>
                                     <Button type="submit" variant="destructive" :disabled="processing">

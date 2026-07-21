@@ -26,9 +26,7 @@ class Game extends Model
 
     protected function casts(): array
     {
-        return [
-            'processes' => 'array',
-        ];
+        return [];
     }
 
     public function setProcessesAttribute(mixed $value): void
