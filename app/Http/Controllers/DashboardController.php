@@ -72,7 +72,7 @@ class DashboardController extends Controller
                 } else {
                     $gapMinutes = $currentSession['end']->diffInMinutes($log->log_date);
 
-                    if ($gapMinutes > 5) {
+                    if ($gapMinutes > 6) {
                         $sessions->push($this->finalizeSession($currentSession));
 
                         $currentSession = [
