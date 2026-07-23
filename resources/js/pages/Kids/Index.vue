@@ -120,7 +120,8 @@ defineOptions({
                             <DialogHeader>
                                 <DialogTitle>Delete Player</DialogTitle>
                                 <DialogDescription>
-                                    Are you sure you want to delete <strong>{{ kid.name }}</strong>? This action cannot be undone.
+                                    <div class="mb-4">Are you sure you want to delete <strong>{{ kid.name }}</strong>? This action cannot be undone.</div>
+                                    <div><strong>WARNING:</strong> all logs associated with this player will also be deleted.</div>
                                 </DialogDescription>
                             </DialogHeader>
                             <Form
@@ -131,7 +132,7 @@ defineOptions({
                             >
                                 <InputError :message="errors.kid" />
                                 <DialogFooter class="mt-6">
-                                    <Button variant="outline" @click="deletingKid = null" :disabled="processing">
+                                    <Button type="button" variant="outline" @click="deletingKid = null" :disabled="processing">
                                         Cancel
                                     </Button>
                                     <Button type="submit" variant="destructive" :disabled="processing">

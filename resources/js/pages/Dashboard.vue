@@ -50,7 +50,7 @@ defineOptions({
     },
 });
 
-const colors = ['bg-green-700', 'bg-amber-700', 'bg-red-700'];
+const colors = ['bg-green-300 dark:bg-green-700', 'bg-amber-300 dark:bg-amber-700', 'bg-red-400 dark:bg-red-700'];
 
 function formatDuration(minutes: number): string {
     const hours = Math.floor(minutes / 60);
@@ -106,7 +106,7 @@ function formatDateTime(dateString: string): string {
                     <div class="px-4 py-3 font-medium text-lg">Top Players</div>
                     <table class="w-full text-sm">
                         <thead>
-                            <tr class="border-b border-sidebar-border/70 text-left bg-gray-800">
+                            <tr class="border-b border-sidebar-border/70 text-left bg-gray-300 dark:bg-gray-800">
                                 <th class="px-4 py-3 font-medium">Player</th>
                                 <th class="px-4 py-3 font-medium">Duration</th>
                             </tr>
@@ -126,7 +126,7 @@ function formatDateTime(dateString: string): string {
                     <div class="px-4 py-3 font-medium text-lg">Recent Sessions</div>
                     <table class="w-full text-sm">
                         <thead>
-                            <tr class="border-b border-sidebar-border/70 text-left bg-gray-800">
+                            <tr class="border-b border-sidebar-border/70 text-left bg-gray-300 dark:bg-gray-800">
                                 <th class="px-4 py-3 font-medium">Player</th>
                                 <th class="px-4 py-3 font-medium">Game</th>
                                 <th class="px-4 py-3 font-medium">Date</th>
