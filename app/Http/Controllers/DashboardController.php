@@ -33,6 +33,10 @@ class DashboardController extends Controller
         ]);
     }
 
+    /**
+     * @param  Collection<int, array{game: mixed, kid: mixed, start: Carbon, end: Carbon, duration_minutes: float}>  $sessions
+     * @return array<int, array{kid: mixed, total_minutes: float, session_count: int}>
+     */
     private function getTopPlayers(Collection $sessions): array
     {
         return $sessions
