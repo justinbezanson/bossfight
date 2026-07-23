@@ -59,7 +59,7 @@ function goToPage(url: string | null) {
                 <thead>
                     <tr class="border-b border-sidebar-border/70 text-left">
                         <th class="px-4 py-3 font-medium">Date</th>
-                        <th class="px-4 py-3 font-medium">Kid</th>
+                        <th class="px-4 py-3 font-medium">Player</th>
                         <th class="px-4 py-3 font-medium">Game</th>
                         <th class="px-4 py-3 font-medium">Message</th>
                     </tr>

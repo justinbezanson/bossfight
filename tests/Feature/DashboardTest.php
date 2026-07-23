@@ -59,12 +59,12 @@ test('sessions are split when gap exceeds 5 minutes', function () {
         'game_id' => $game->id,
         'log_date' => Carbon::parse('2026-07-10 10:03:00'),
     ]);
-    // Gap > 5 minutes — new session
+    // Gap > 6 minutes — new session
     Log::factory()->create([
         'user_id' => $user->id,
         'kid_id' => $kid->id,
         'game_id' => $game->id,
-        'log_date' => Carbon::parse('2026-07-10 10:09:00'),
+        'log_date' => Carbon::parse('2026-07-10 10:10:00'),
     ]);
     Log::factory()->create([
         'user_id' => $user->id,
