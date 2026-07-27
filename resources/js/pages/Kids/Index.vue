@@ -79,7 +79,7 @@ defineOptions({
 
         <div class="rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
             <div v-for="kid in kids" :key="kid.id" class="flex items-center justify-between border-b border-sidebar-border/70 px-4 py-3 last:border-b-0">
-                <span>{{ kid.name }}</span>
+                <span>{{ kid.name }} ({{ kid.id }})</span>
                 <div class="flex gap-2">
                     <Popover
                         :open="editingKidId === kid.id"
