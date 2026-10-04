@@ -8,17 +8,22 @@ use App\Actions\KidUpdateAction;
 use App\Http\Requests\KidStoreRequest;
 use App\Http\Requests\KidUpdateRequest;
 use App\Models\Kid;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class KidController extends Controller
 {
-    public function index(): Response
+    public function index(): Response|JsonResponse
     {
         $this->authorize('viewAny', Kid::class);
 
         $kids = Kid::where('user_id', auth()->id())->get();
+
+        if (request()->wantsJson()) {
+            return response()->json($kids);
+        }
 
         return Inertia::render('Kids/Index', [
             'kids' => $kids,
